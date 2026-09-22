@@ -1,0 +1,76 @@
+{
+  "type": "Feature",
+  "stac_version": "1.1.0",
+  "stac_extensions": [
+    "https://stac-extensions.github.io/eo/v1.1.0/schema.json"
+  ],
+  "id": "S2A_20250815T101031",
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          11.0,
+          47.0
+        ],
+        [
+          11.2,
+          47.0
+        ],
+        [
+          11.2,
+          47.2
+        ],
+        [
+          11.0,
+          47.2
+        ],
+        [
+          11.0,
+          47.0
+        ]
+      ]
+    ]
+  },
+  "bbox": [
+    11.0,
+    47.0,
+    11.2,
+    47.2
+  ],
+  "properties": {
+    "platform": "sentinel-2a",
+    "instruments": [
+      "msi"
+    ],
+    "eo:cloud_cover": 12.5,
+    "datetime": "2025-08-15T10:10:31Z"
+  },
+  "links": [
+    {
+      "rel": "collection",
+      "href": "/collections/sentinel-2",
+      "type": "application/json",
+      "title": "Sentinel-2"
+    }
+  ],
+  "assets": {
+    "B04": {
+      "href": "s3://eo-data/sentinel-2/test_b04_cog.tif",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "Sentinel-2 Red Band (B04)",
+      "roles": [
+        "data"
+      ]
+    },
+    "B08": {
+      "href": "data/test_b04_cog.tif",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "Sentinel-2 NIR Band (B08)",
+      "roles": [
+        "data"
+      ]
+    }
+  },
+  "collection": "sentinel-2"
+}
