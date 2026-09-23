@@ -4,6 +4,9 @@ item = create_sentinel2_item()
 
 item.validate()
 
-item.save_object(dest_href="data/sentinel2_item.json")
+item.save_object(
+    include_self_link=False,
+    dest_href="data/sentinel2_item.json",
+)
 
-print("STAC Item saved.")
+print("STAC Item saved.")   
