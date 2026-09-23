@@ -9,6 +9,7 @@ from app.models import (
 # from app.stac get_sentinel2_items, import get_sentinel2_item
 from app.stac import load_sentinel2_item, load_sentinel2_items
 from app.statistics import calculate_asset_statistics
+from app.ndvi import calculate_ndvi, load_raster_from_storage
 
 router = APIRouter()
 
@@ -66,6 +67,33 @@ def get_item(item_id: str) -> dict:
         )
 
     return item.to_dict()
+
+
+@router.get("/ndvi/{item_id}")
+def get_ndvi(item_id: str) -> dict[str, float | str]:
+    item = load_sentinel2_item()
+
+    if item.id != item_id:
+        raise HTTPException(
+            status_code=404,
+            detail=f"Item '{item_id}' not found",
+        )
+
+    red_asset = item.assets["B04"]
+    nir_asset = item.assets["B08"]
+    
+    red = load_raster_from_storage(red_asset.href)
+    nir = load_raster_from_storage(nir_asset.href)
+
+    ndvi = calculate_ndvi(red, nir)
+
+    return {
+        "item_id": item.id,
+        "mean_ndvi": float(ndvi.mean().item()),
+        "min_ndvi": float(ndvi.min().item()),
+        "max_ndvi": float(ndvi.max().item()),
+    }
+
 
 @router.get(
     "/statistics/{item_id}",
