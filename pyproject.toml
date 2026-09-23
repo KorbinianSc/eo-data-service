@@ -11,7 +11,7 @@ dependencies = [
     "python-dotenv",
     "rasterio",
     "rioxarray",
-    "pystac",
+    "pystac[validation]",
     "uvicorn[standard]",
     "xarray",
     "zarr",
