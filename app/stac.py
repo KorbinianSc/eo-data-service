@@ -34,7 +34,6 @@ def create_sentinel2_item() -> pystac.Item:
     item.add_asset(
         "B04",
         pystac.Asset(
-            # href="data/test_b04_cog.tif",
             href="s3://eo-data/sentinel-2/test_b04_cog.tif",
             media_type="image/tiff; application=geotiff; profile=cloud-optimized",
             title="Sentinel-2 Red Band (B04)",
@@ -45,7 +44,7 @@ def create_sentinel2_item() -> pystac.Item:
     item.add_asset(
         "B08",
         pystac.Asset(
-            href="data/test_b04_cog.tif",
+            href="s3://eo-data/sentinel-2/test_b08_cog.tif",
             media_type="image/tiff; application=geotiff; profile=cloud-optimized",
             title="Sentinel-2 NIR Band (B08)",
             roles=["data"],

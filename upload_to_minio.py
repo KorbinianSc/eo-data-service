@@ -9,14 +9,16 @@ s3 = boto3.client(
 )
 
 bucket = "eo-data"
-source = "data/test_b04_cog.tif"
-key = "sentinel-2/test_b04_cog.tif"
 
-s3.upload_file(
-    source,
-    bucket,
-    key,
-)
+for band in ["b04", "b08"]:
+    source = f"data/test_{band}_cog.tif"
+    key = f"sentinel-2/test_{band}_cog.tif"
 
-print(f"Uploaded: {source}")
-print(f"s3://{bucket}/{key}")
+    s3.upload_file(
+        source,
+        bucket,
+        key,
+    )
+
+    print(f"Uploaded: {source}")
+    print(f"s3://{bucket}/{key}")

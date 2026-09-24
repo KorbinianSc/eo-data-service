@@ -3,3 +3,7 @@
 __pycache__/
 .pytest_cache/
 data/*.zarr/
+
+# Generated EO test data
+data/test_*.tif
+data/test_*.zarr/
