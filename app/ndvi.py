@@ -19,6 +19,5 @@ def load_raster_from_storage(href: str) -> xr.DataArray:
 
     data = read_object(href)
 
-    with MemoryFile(data) as memfile:
-        with memfile.open() as src:
-            return rioxarray.open_rasterio(src).squeeze("band").load()
+    with MemoryFile(data) as memfile, memfile.open() as src:
+        return rioxarray.open_rasterio(src).squeeze("band").load()
