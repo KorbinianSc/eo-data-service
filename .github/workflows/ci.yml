@@ -1,3 +1,4 @@
+```yaml
 name: CI
 
 on:
@@ -10,9 +11,16 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: read
+      packages: read
+
     services:
       minio:
-        image: quay.io/minio/minio:RELEASE.2025-09-07T16-13-09Z
+        image: ghcr.io/korbiniansc/minio-eo-service:latest
+        credentials:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
         ports:
           - 9000:9000
         env:
@@ -41,12 +49,13 @@ jobs:
 
       - name: Install project
         run: python -m pip install -e ".[dev]"
-        
+
       - name: Prepare MinIO test data
         run: python scripts/prepare_minio.py
-      
+
       - name: Run Ruff
         run: ruff check .
 
       - name: Run tests
         run: pytest
+```
