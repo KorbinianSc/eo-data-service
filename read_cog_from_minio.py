@@ -1,4 +1,5 @@
 import boto3
+import rioxarray
 from rasterio.io import MemoryFile
 
 s3 = boto3.client(
@@ -25,3 +26,10 @@ with MemoryFile(data) as memfile, memfile.open() as src:
     print(f"CRS:    {src.crs}")
     print(f"Bounds: {src.bounds}")
     print(f"Dtype:  {src.dtypes[0]}")
+    xarray_data = rioxarray.open_rasterio(src).squeeze("band")
+
+    print()
+    print(xarray_data)
+    print()
+    print(f"Dimensions: {xarray_data.dims}")
+    print(f"Shape:      {xarray_data.shape}")
